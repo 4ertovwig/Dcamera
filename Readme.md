@@ -1,5 +1,7 @@
 A simple project for capturing audio/video data from a USB camera. 
 Using native linux libraries. **No vibe coding**. Just for fun ;)
+![Hello](docs/libcaca-example.jpg)
+
 ## 📋 Сontent
 - [Capabilities](#-Capabilities)
 - [Architecture](#-Architecture)
