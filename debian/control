@@ -1,0 +1,21 @@
+Source: dcamera
+Section: video
+Priority: optional
+Maintainer: 4ertovwig <xperious@mail.ru>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13), cmake, make, g++, gcc, gdb, clang, pkg-config, libavcodec-dev, libswscale-dev, libavutil-dev,
+ libavfilter-dev, libjpeg-dev, libspeex-dev, libspeexdsp-dev, libsoxr-dev, alsa-base, libasound2-dev, libcaca-dev,
+ libx11-xcb-dev, libxinerama-dev, libusb-1.0-0-dev, libuvc-dev, libxcb-image0-dev, libxcb-util-dev, libwayland-dev,
+ libxkbcommon-dev, wayland-protocols, qtbase5-dev, libpulse-dev
+Standards-Version: 4.6.2
+Homepage: https://github.com/4ertovwig/dcamera
+
+Package: dcamera
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: A simple audio/video application.
+ A simple application for demonstrating how to work with a webcam and audio stack using native libraries.

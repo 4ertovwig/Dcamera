@@ -1,0 +1,46 @@
+#!/usr/bin/make -f
+
+# See debhelper(7) (uncomment to enable).
+# Output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+
+# See FEATURE AREAS in dpkg-buildflags(1).
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# See ENVIRONMENT in dpkg-buildflags(1).
+# Package maintainers to append CFLAGS.
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# Package maintainers to append LDFLAGS.
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+# Use qt frontend, alsa audio backend
+CONF_OPTS = -DCMAKE_BUILD_TYPE=Release \
+			-DUSE_VIDEO_BACKEND_UVC=ON \
+			-DUSE_FRONTEND_QT=ON \ 
+			-DUSE_AUDIO_BACKEND_ALSA=ON \
+			-DUSE_LIBSOXR_RESAMPLER=ON \
+			-DUSE_LIBJPEG_TURBO_DECODER=ON \
+			-DUSE_SPEEX_NOISE_SUPRESSION=ON \
+			-DUSE_FRAME_COUNTER=ON \
+			-DUSE_CLANG_COMPILER=ON \
+			-DUSE_PROFILING=ON \
+			-DUSE_CRASH_DUMP=ON
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(CONF_OPTS)
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_shlibdeps:
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
+
+override_dh_dwz:
+	@echo "Skipping dh_dwz"
+
+override_dh_strip:
+	@echo "Skipping dh_strip"
+
+override_dh_compress:
+	@echo "Skipping dh_compress"
