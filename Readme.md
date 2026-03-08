@@ -1,5 +1,6 @@
 A simple project for capturing audio/video data from a USB camera. 
 Using native linux libraries. **No vibe coding**. Just for fun ;)
+
 ![Hello](docs/libcaca-example.jpg)
 
 ## 📋 Сontent
@@ -29,7 +30,7 @@ Currently the following video backends are available:
 - video4linux
 - libuvc
 
-### supported video frontends
+### Supported video frontends
 Currently the following video frontends are available:
 - Qt6
 - Wayland
