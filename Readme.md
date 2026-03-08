@@ -1,14 +1,14 @@
 A simple project for capturing audio/video data from a USB camera. 
 Using native linux libraries. **No vibe coding**. Just for fun ;)
 ## 📋 Сontent
-- [Capabilities](## Capabilities)
-- [Architecture](## Architecture)
-- [Building](## Building)
-- [Using](## Using)
-- [Possible problems](## Possible problems) 
-- [Profiling](## Profiling)
-- [License](## License)
-- [Bugs](## Bugs)
+- [Capabilities](#-Capabilities)
+- [Architecture](#-Architecture)
+- [Building](#-Building)
+- [Using](#-Using)
+- [Possible problems](#-Possible-problems) 
+- [Profiling](#-Profiling)
+- [License](#-License)
+- [Bugs](#-Bugs)
   
 ## Capabilities
 
@@ -78,10 +78,12 @@ $ apt-get install \
 ```bash
 $ make build
 $ cd build
-$ cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_VIDEO_BACKEND_V4L2=ON -DUSE_VIDEO_BACKEND_UVC=OFF -DUSE_FRONTEND_QT=OFF -DUSE_FRONTEND_WAYLAND=OFF \
-		-DUSE_FRONTEND_CACA=ON -DUSE_FRONTEND_X11=OFF -DUSE_AUDIO_BACKEND_PULSE=OFF -DUSE_AUDIO_BACKEND_PIPEWIRE=OFF -DUSE_AUDIO_BACKEND_ALSA=ON \
-		-DUSE_LIBSOXR_RESAMPLER=ON -DUSE_LIBJPEG_TURBO_DECODER=ON -DUSE_FFT_NOISE_SUPRESSION=OFF -DUSE_SPEEX_NOISE_SUPRESSION=ON \
-		-DUSE_FRAME_COUNTER=ON -DUSE_CLANG_COMPILER=ON -DUSE_PROFILING=ON -DUSE_CRASH_DUMP=ON ..
+$ cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_VIDEO_BACKEND_V4L2=ON -DUSE_VIDEO_BACKEND_UVC=OFF \
+		-DUSE_FRONTEND_QT=OFF -DUSE_FRONTEND_WAYLAND=OFF -DUSE_FRONTEND_CACA=ON \
+		-DUSE_FRONTEND_X11=OFF -DUSE_AUDIO_BACKEND_PULSE=OFF -DUSE_AUDIO_BACKEND_PIPEWIRE=OFF \
+		-DUSE_AUDIO_BACKEND_ALSA=ON -DUSE_LIBSOXR_RESAMPLER=ON -DUSE_LIBJPEG_TURBO_DECODER=ON \
+		-DUSE_FFT_NOISE_SUPRESSION=OFF -DUSE_SPEEX_NOISE_SUPRESSION=ON -DUSE_FRAME_COUNTER=ON \
+		-DUSE_CLANG_COMPILER=ON -DUSE_PROFILING=ON -DUSE_CRASH_DUMP=ON ..
 $ make -j$(nproc)
 ```
 
@@ -114,7 +116,7 @@ $ dpkg-buildpackage -uc -us -j$(nproc)
 | `--dither-charset`           | **Dither character set:** `ascii`, `shades`, `block`                                    |
 | `--dither-color`             | **Dither color mode:** `mono`, `fullgray`, `full16`                                     |
 | `-h`, `--help`               | Display help message                                                                    |
-### Example![Pipeline for audio samples](docs/audioloop.svg)
+### Example
 
 ```bash
 $ LD_PRELOAD=/home/alt/projects/libcaca/caca/.libs/libcaca.so.0.99.20 WAYLAND_DEBUG=1 WAYLAND_DISPLAY=wayland-1 \
