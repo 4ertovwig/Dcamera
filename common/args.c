@@ -24,7 +24,7 @@ LogLevel log_lvl = INFO;
 bool ColorOutput = true;
 
 CamParams camParams = {
-    .dev = "/dev/video0",
+    .dev = { '/','d','e','v','/','v','i','d','e','o','0' },
     .lvl = INFO,
     .vid = 0x123,
     .pid = 0x123,
@@ -56,6 +56,24 @@ enum
     DITHER_CHARSET_OPT = 229,
     DITHER_COLOR_OPT = 230
 };
+
+static int set_video(char *optarg, CamParams *p)
+{
+    if (!optarg)
+    {
+        LOG_WARNING("Use --camera option instead\n");
+        return -1;
+    }
+
+    size_t lcam = strlen(optarg) + 1;
+    memset(p->dev, 0, sizeof(p->dev)/sizeof(p->dev[0]));
+    if (lcam > sizeof(p->dev))
+        strlcpy(p->dev, optarg, sizeof("/dev/videoxx"));
+    else
+        strlcpy(p->dev, optarg, lcam);
+    LOG_INFO("camera device: %s\n", p->dev);
+    return 0;
+}
 
 static int set_geometry(char *optarg, CamParams *p)
 {
@@ -129,17 +147,8 @@ static int parse_opt(int key, const char *arg, CamParams *camParams)
         LOG_INFO("pid: 0x%04x\n", camParams->pid);
         break;
     case 'c':
-        if (optarg == NULL)
-        {
-            LOG_WARNING("Use --camera option instead\n");
+        if (set_video(optarg, camParams) == -1)
             return -1;
-        }
-        size_t lcam = strlen(optarg) + 1;
-        if (lcam <= sizeof("/dev/videoxx"))
-            strlcpy(camParams->dev, optarg, sizeof("/dev/videoxx"));
-        else
-            strlcpy(camParams->dev, optarg, lcam);
-        LOG_INFO("camera device: %s\n", camParams->dev);
         break;
     case 'f':
         camParams->frame_counter = true;

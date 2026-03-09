@@ -25,6 +25,7 @@
 #endif
 
 // extra video device
+const char *vid1 = "/dev/video0";
 const char *vid2 = "/dev/video1";
 
 // interface
@@ -105,11 +106,15 @@ int configureV4lVideoStream(CamParams camParams)
     if (fdvideo < 0)
     {
         LOG_ERROR("Cannot open %s device. Try another\n", camParams.dev);
-        fdvideo = open(vid2, O_RDWR);
+        fdvideo = open(vid1, O_RDWR);
         if (fdvideo < 0)
         {
-            LOG_FATAL("Cannot open /dev/video1 device. Exit...\n");
-            return 1;
+            fdvideo = open(vid2, O_RDWR);
+            if (fdvideo < 0)
+            {
+                LOG_FATAL("Cannot open /dev/video0 and /dev/video1 devices. Exit...\n");
+                return 1;
+            }
         }
     }
     LOG_INFO("Open device: %s\n", camParams.dev);
